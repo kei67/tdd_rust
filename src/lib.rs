@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 struct Doller{
     amount:i32
 }
