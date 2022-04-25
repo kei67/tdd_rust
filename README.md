@@ -138,4 +138,16 @@ trait Money {
 assert_ne!(Doller::new(5),Franc::new(5)); // コンパイルエラー!!
 ```
 
-MoneyBaseの導入
+## Refactoring 
+構造体 Moneyの導入
+```rust
+struct Money{
+    amount: i32
+}
+```
+Doller, FrancはMoneyを持つようにした。
+```rust
+struct Doller{
+    money: Money
+}
+```
