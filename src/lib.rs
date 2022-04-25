@@ -1,47 +1,58 @@
 #![allow(dead_code)]
 
-trait MoneyTrait {
-    fn new(amount:i32) -> Self;
-    fn times(&self, multiplier: i32) -> Self;
+#[derive(Debug)]
+struct Money{
+    amount: i32
 }
 
 #[derive(Debug)]
 struct Doller{
-    amount:i32
+    money: Money
+}
+
+#[derive(Debug)]
+struct Franc{
+    money: Money
+}
+trait MoneyTrait {
+    fn new(amount:i32) -> Self;
+    fn amount(&self) -> i32;
+    fn times(&self, multiplier: i32) -> Self;
 }
 
 impl MoneyTrait for Doller {
     fn new(amount:i32) -> Self {
-        Doller{amount:amount}
+       Doller{money: Money{amount:amount}}
+    }
+    fn amount(&self) -> i32 {
+        self.money.amount
     }
     fn times(&self, multipler:i32) -> Self{
-        Doller {amount:self.amount*multipler}
+        Doller{money: Money{amount: self.amount()*multipler}}
+    }
+}
+
+impl MoneyTrait for Franc  {
+    fn new(amount:i32) -> Self {
+       Franc {money: Money{amount:amount}}
+    }
+    fn amount(&self) -> i32 {
+        self.money.amount
+    }
+    fn times(&self, multipler:i32) -> Self{
+        Franc {money: Money{amount: self.amount()*multipler}}
     }
 }
 
 impl PartialEq for Doller {
     fn eq(&self, other: &Doller) -> bool {
-        self.amount == other.amount
+        self.amount() == other.amount()
     } 
-}
-
-#[derive(Debug)]
-struct Franc{
-    amount:i32
-}
-
-impl MoneyTrait for Franc {
-    fn new(amount:i32) -> Self {
-        Franc{amount:amount}
-    }
-    fn times(&self, multipler:i32) -> Self{
-        Franc {amount:self.amount*multipler}
-    }
 }
 
 impl PartialEq for Franc {
     fn eq(&self, other: &Franc) -> bool {
-        self.amount == other.amount
+        self.amount() == other.amount()
     } 
 }
 
