@@ -1,11 +1,16 @@
 #![allow(dead_code)]
 
+trait MoneyTrait {
+    fn new(amount:i32) -> Self;
+    fn times(&self, multiplier: i32) -> Self;
+}
+
 #[derive(Debug)]
 struct Doller{
     amount:i32
 }
 
-impl Doller {
+impl MoneyTrait for Doller {
     fn new(amount:i32) -> Self {
         Doller{amount:amount}
     }
@@ -25,7 +30,7 @@ struct Franc{
     amount:i32
 }
 
-impl Franc {
+impl MoneyTrait for Franc {
     fn new(amount:i32) -> Self {
         Franc{amount:amount}
     }
@@ -56,6 +61,9 @@ mod mony_tests {
         // assert!(Doller::new(5).equals(Doller::new(5)));
         assert_eq!(Doller::new(5),Doller::new(5)); // operator overload
         assert_ne!(Doller::new(5),Doller::new(6)); // operator overload
+        assert_eq!(Franc::new(5),Franc::new(5)); // operator overload
+        assert_ne!(Franc::new(5),Franc::new(6)); // operator overload
+        // assert_ne!(Doller::new(5),Franc::new(5)); 
     }
 
     #[test]
@@ -63,6 +71,5 @@ mod mony_tests {
         let five: Franc = Franc::new(5);
         assert_eq!(Franc::new(10), five.times(2));
         assert_eq!(Franc::new(15), five.times(3));
-    
     }
 }

@@ -88,7 +88,7 @@ productを消した。
 
 
 ## 5章 原則をあえて破るとき
-Dollerを**コピー**してFrancを作った。
+Dollerを**コピペ(原則破り)**してFrancを作った。
 ```rust 
 #[derive(Debug)]
 struct Franc{
@@ -120,3 +120,22 @@ impl PartialEq for Franc {
     
     }
 ```
+
+## 6章 テスト不足に気づいたら
+rustには継承がないので、Money Traitの実装という形で行う?
+ただしimplでの重複は消えない。。。
+```rust
+trait Money {
+    fn new(amount:i32) -> Self;
+    fn times(&self, multiplier: i32) -> Self;
+}
+```
+
+## 7章　疑念をテストに翻訳する。
+
+`equals()`に関しては、rustではPartialEqで、等価演算子`==`のオーバーロードという形で実装していたが、DollerとFrancの比較はできない。 次章へ
+```rust
+assert_ne!(Doller::new(5),Franc::new(5)); // コンパイルエラー!!
+```
+
+MoneyBaseの導入
